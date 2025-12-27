@@ -9,10 +9,15 @@
 <script src="https://ad.gigapub.tech/script?id=1096"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,sans-serif}
+/* ফন্ট ইমপোর্ট করা হয়েছে যাতে সব ডিভাইসে একই দেখায় */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family: 'Hind Siliguri', sans-serif;}
+
 body{
   background:#050814; color:#fff; overflow-x:hidden;
   background-image: radial-gradient(circle at 50% 0%, #1a2a6c 0%, #050814 100%);
+  min-height: 100vh;
 }
 
 .container{padding:16px;padding-bottom:120px}
@@ -39,16 +44,16 @@ body{
   border-radius: 20px; padding: 15px; text-align: center; cursor: pointer;
   transition: 0.3s; position: relative;
 }
-.method-card img{ width: 50px; height: 50px; border-radius: 12px; margin-bottom: 8px; }
+.method-card img{ width: 50px; height: 50px; border-radius: 12px; margin-bottom: 8px; object-fit: contain; background: white;}
 .method-card b{ display: block; font-size: 14px; }
 .method-card.active{
   border-color: #6f6dff; background: rgba(111,109,255,0.1);
   box-shadow: 0 0 15px rgba(111,109,255,0.3);
 }
 .method-card.active::after {
-  content: ''; position: absolute; top: 10px; right: 10px;
-  background: #6f6dff; color: #fff; width: 20px; height: 20px;
-  border-radius: 50%; font-size: 12px; line-height: 20px;
+  content: '✓'; position: absolute; top: 10px; right: 10px;
+  background: #6f6dff; color: #fff; width: 22px; height: 22px;
+  border-radius: 50%; font-size: 14px; line-height: 22px; text-align: center;
 }
 
 /* ===== INPUTS ===== */
@@ -57,7 +62,6 @@ body{
   border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3);
   color:#fff; font-size:16px; outline:none;
 }
-.input-box:focus{ border-color:#6f6dff; }
 
 /* ===== EARN GRID ===== */
 .earn-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:15px; }
@@ -65,7 +69,6 @@ body{
   background:rgba(255,255,255,0.05); padding:20px; border-radius:24px;
   text-align:center; border:1px solid rgba(111,109,255,0.2); transition: 0.3s;
 }
-.earn-item:active{ transform: scale(0.95); }
 
 /* ===== NAV ===== */
 .nav{
@@ -75,7 +78,7 @@ body{
   border:1px solid rgba(255,255,255,0.1); z-index:1000;
 }
 .nav button{ background:none; border:none; color:#777; font-size:26px; transition:0.3s; width:55px; height:55px; border-radius:18px; }
-.nav button.active{ color:#fff; background:linear-gradient(135deg,#6f6dff,#00d2ff); box-shadow:0 0 20px rgba(111,109,255,0.4); transform:translateY(-8px); }
+.nav button.active{ color:#fff; background:linear-gradient(135deg,#6f6dff,#00d2ff); transform:translateY(-8px); }
 
 .hide{display:none}
 </style>
@@ -86,12 +89,12 @@ body{
   <div style="display:flex; align-items:center; gap:12px;">
     <img id="photo" style="width:48px; height:48px; border-radius:50%; border:2px solid #6f6dff; object-fit: cover;">
     <div>
-      <p style="font-size:11px; color:#aaa; text-transform:uppercase; letter-spacing:1px;">Welcome</p>
+      <p style="font-size:11px; color:#aaa; text-transform:uppercase;">Welcome</p>
       <b id="name" style="font-size:16px;">User</b>
     </div>
   </div>
   <div style="background:rgba(111,109,255,0.15); padding:10px 18px; border-radius:18px; border:1px solid rgba(111,109,255,0.3);">
-    <span style="color:#00d2ff; font-weight:800; font-size:16px;"> <span id="balance">0</span></span>
+    <span style="color:#00d2ff; font-weight:800; font-size:16px;">৳ <span id="balance">0</span></span>
   </div>
 </div>
 
@@ -99,44 +102,44 @@ body{
 
   <div id="home">
     <div class="card premium-gradient">
-      <h2 style="font-size:24px;"> ,  !</h2>
-      <p style="opacity:0.9; font-size:14px; margin: 5px 0 15px;">     </p>
-      <button class="btn-premium" style="background:#050814; box-shadow:none; font-size:15px; padding:12px;" onclick="nav('earn')">   </button>
+      <h2 style="font-size:24px;">৳ ১০,০০০ আয় করুন!</h2>
+      <p style="opacity:0.9; font-size:14px; margin: 5px 0 15px;">প্রতি রেফারে পাবেন ২০৳ নিশ্চিত বোনাস। বন্ধুকে ইনভাইট করুন এখনই।</p>
+      <button class="btn-premium" style="background:#050814; box-shadow:none; font-size:15px; padding:12px;" onclick="nav('earn')">কাজ শুরু করুন ⚡</button>
     </div>
     
     <div style="display:flex; gap:12px; margin-top:5px;">
         <div class="card" style="flex:1; text-align:center; padding:15px;">
-            <small style="color:#aaa;"> </small><br><b style="color:#00d2ff; font-size:20px;"><span id="today_ads">0</span></b>
+            <small style="color:#aaa;">আজকের টাস্ক</small><br><b style="color:#00d2ff; font-size:20px;"><span id="today_ads">0</span></b>
         </div>
         <div class="card" style="flex:1; text-align:center; padding:15px;">
-            <small style="color:#aaa;"> </small><br><b style="color:#6f6dff; font-size:20px;"><span id="total_ref">0</span></b>
+            <small style="color:#aaa;">মোট রেফার</small><br><b style="color:#6f6dff; font-size:20px;"><span id="total_ref">0</span></b>
         </div>
     </div>
   </div>
 
   <div id="earn" class="hide">
     <div class="card" style="text-align:center; border: 1px solid #6f6dff;">
-        <h3 style="color:#00d2ff;">Daily Reward</h3>
-        <p style="font-size:13px; color:#aaa; margin:5px 0 15px;">     </p>
-        <button class="btn-premium" id="bonusBtn" onclick="claimBonus()">Claim 10 Bonus </button>
+        <h3 style="color:#00d2ff;">ডেইলি রিওয়ার্ড</h3>
+        <p style="font-size:13px; color:#aaa; margin:5px 0 15px;">প্রতিদিন একবার ১০৳ ফ্রি বোনাস নিন</p>
+        <button class="btn-premium" id="bonusBtn" onclick="claimBonus()">Claim 10৳ Bonus 🎁</button>
     </div>
 
     <div class="earn-grid">
         <div class="earn-item" onclick="watchAd()">
-            <div style="font-size:30px; margin-bottom:10px;"></div>
-            <b>Watch Ad</b>
-            <p style="font-size:12px; color:#00d2ff; margin-top:4px;">Earn  10.00</p>
+            <div style="font-size:30px; margin-bottom:10px;">📺</div>
+            <b>অ্যাড দেখুন</b>
+            <p style="font-size:12px; color:#00d2ff; margin-top:4px;">আয় করুন ৳ ১০.০০</p>
         </div>
         <div class="earn-item" onclick="startSpin()">
-            <div style="font-size:30px; margin-bottom:10px;"></div>
-            <b>Lucky Spin</b>
-            <p style="font-size:12px; color:#00d2ff; margin-top:4px;">Win Up to  50</p>
+            <div style="font-size:30px; margin-bottom:10px;">🎡</div>
+            <b>লাকি স্পিন</b>
+            <p style="font-size:12px; color:#00d2ff; margin-top:4px;">জিতুন ৫০৳ পর্যন্ত</p>
         </div>
     </div>
 
     <div class="card" style="margin-top:15px;">
-        <h3>Refer & Earn </h3>
-        <p style="font-size:13px; color:#aaa; margin-top:5px;">       </p>
+        <h3>রেফার এবং আয় 👥</h3>
+        <p style="font-size:13px; color:#aaa; margin-top:5px;">আপনার রেফার লিঙ্ক শেয়ার করে ২০৳ আয় করুন</p>
         <div style="background:rgba(0,0,0,0.4); padding:15px; border-radius:15px; margin-top:15px; display:flex; justify-content:space-between; align-items:center; border:1px dashed #6f6dff;">
             <small id="refLink" style="color:#6f6dff; font-weight:bold;">Link Loading...</small>
             <button onclick="copyRef()" style="background:#6f6dff; border:none; color:#fff; padding:8px 15px; border-radius:10px; font-weight:bold;">Copy</button>
@@ -146,29 +149,29 @@ body{
 
   <div id="withdraw" class="hide">
       <div class="card">
-          <h3 style="text-align:center; margin-bottom:10px;">Withdraw Funds</h3>
+          <h3 style="text-align:center; margin-bottom:10px;">উত্তোলন (Withdraw)</h3>
           <div style="text-align:center; background:rgba(111,109,255,0.1); padding:20px; border-radius:20px; margin-bottom:20px;">
-              <small style="color:#aaa;">Available Balance</small>
-              <h1 style="font-size:35px; color:#00d2ff;"> <span id="wb">0</span></h1>
+              <small style="color:#aaa;">মোট ব্যালেন্স</small>
+              <h1 style="font-size:35px; color:#00d2ff;">৳ <span id="wb">0</span></h1>
           </div>
 
-          <p style="font-weight:bold; margin-bottom:10px;">Select Payment Method:</p>
+          <p style="font-weight:bold; margin-bottom:10px;">পেমেন্ট মেথড সিলেক্ট করুন:</p>
           <div class="method-grid">
               <div class="method-card active" onclick="selectMethod(this, 'Bkash')">
-                  <img src="https://i.ibb.co/9v0P9Z5/bkash.png" onerror="this.src='https://freelogopng.com/images/all_img/1656234744bkash-app-logo.png'">
-                  <b>Bkash</b>
+                  <img src="https://i.ibb.co/9v0P9Z5/bkash.png">
+                  <b>বিকাশ</b>
               </div>
               <div class="method-card" onclick="selectMethod(this, 'Nagad')">
-                  <img src="https://i.ibb.co/R73f7mS/nagad.png" onerror="this.src='https://freelogopng.com/images/all_img/1679248787-nagad-logo-png.png'">
-                  <b>Nagad</b>
+                  <img src="https://i.ibb.co/R73f7mS/nagad.png">
+                  <b>নগদ</b>
               </div>
           </div>
 
-          <input type="number" id="amt" class="input-box" placeholder="Enter Amount (Min 500)">
-          <input type="text" id="num" class="input-box" placeholder="Enter Account Number">
+          <input type="number" id="amt" class="input-box" placeholder="টাকার পরিমাণ (মিনিমাম ৫০০৳)">
+          <input type="text" id="num" class="input-box" placeholder="বিকাশ বা নগদ নম্বর দিন">
           
-          <button class="btn-premium" style="margin-top:25px;" onclick="reqW()">Request Withdrawal </button>
-          <p style="text-align:center; font-size:11px; color:#aaa; margin-top:15px;">  -    </p>
+          <button class="btn-premium" style="margin-top:25px;" onclick="reqW()">উত্তোলন রিকোয়েস্ট দিন 💸</button>
+          <p style="text-align:center; font-size:11px; color:#aaa; margin-top:15px;">পেমেন্ট পেতে ১২-২৪ ঘণ্টা সময় লাগতে পারে।</p>
       </div>
   </div>
 
@@ -180,39 +183,39 @@ body{
         
         <div style="display:flex; gap:10px; margin-top:20px;">
             <div style="flex:1; background:rgba(255,255,255,0.05); padding:12px; border-radius:15px;">
-                <small>Income</small><br><b style="color:#00d2ff;"> <span id="total_inc">0</span></b>
+                <small>মোট আয়</small><br><b style="color:#00d2ff;">৳ <span id="total_inc">0</span></b>
             </div>
             <div style="flex:1; background:rgba(255,255,255,0.05); padding:12px; border-radius:15px;">
-                <small>Tasks</small><br><b style="color:#6f6dff;"><span id="total_ads">0</span></b>
+                <small>টাস্ক</small><br><b style="color:#6f6dff;"><span id="total_ads">0</span></b>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h3 style="margin-bottom:15px; color:#00d2ff; font-size:16px;"> Top Earners (Global)</h3>
+        <h3 style="margin-bottom:15px; color:#00d2ff; font-size:16px;">🏆 সেরা উপার্জনকারী</h3>
         <div id="leaderboard">
             <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-                <span>1. Mehedi Hasan</span> <b style="color:#00d2ff;">,</b>
+                <span>1. মেহেদী হাসান</span> <b style="color:#00d2ff;">৳ ৫২,৪০০</b>
             </div>
             <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-                <span>2. Rakib Ahmed</span> <b style="color:#00d2ff;">,</b>
+                <span>2. রাকিব আহমেদ</span> <b style="color:#00d2ff;">৳ ৪৭,১০০</b>
             </div>
             <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05);">
-                <span>3. Sumon Ali</span> <b style="color:#00d2ff;">,</b>
+                <span>3. সুমন আলী</span> <b style="color:#00d2ff;">৳ ৪১,৮০০</b>
             </div>
         </div>
     </div>
     
-    <button class="btn-premium" style="background:rgba(255,255,255,0.1); box-shadow:none; border:1px solid rgba(255,255,255,0.2);" onclick="openDev()">Contact Developer </button>
+    <button class="btn-premium" style="background:rgba(255,255,255,0.1); box-shadow:none; border:1px solid rgba(255,255,255,0.2);" onclick="openDev()">Contact Developer 👨‍💻</button>
   </div>
 
 </div>
 
 <div class="nav">
-  <button id="n-home" class="active" onclick="nav('home')"></button>
-  <button id="n-earn" onclick="nav('earn')"></button>
-  <button id="n-withdraw" onclick="nav('withdraw')"></button>
-  <button id="n-profile" onclick="nav('profile')"></button>
+  <button id="n-home" class="active" onclick="nav('home')">🏠</button>
+  <button id="n-earn" onclick="nav('earn')">💰</button>
+  <button id="n-withdraw" onclick="nav('withdraw')">💸</button>
+  <button id="n-profile" onclick="nav('profile')">👤</button>
 </div>
 
 <script>
@@ -226,7 +229,7 @@ document.getElementById('name').innerText = document.getElementById('p_name').in
 document.getElementById('uid').innerText = user.id || "N/A";
 document.getElementById('refLink').innerText = "https://t.me/CashDhoroBot?start=" + (user.id || "join");
 
-let data = JSON.parse(localStorage.getItem("pro_app_data")) || { bal: 0, ads: 0, ref: 0, lastBonus: "" };
+let data = JSON.parse(localStorage.getItem("pro_app_data_v2")) || { bal: 0, ads: 0, ref: 0, lastBonus: "" };
 let selectedMth = "Bkash";
 
 function update() {
@@ -234,7 +237,7 @@ function update() {
   document.getElementById('total_inc').innerText = data.bal;
   document.getElementById('total_ads').innerText = document.getElementById('today_ads').innerText = data.ads;
   document.getElementById('total_ref').innerText = data.ref;
-  localStorage.setItem("pro_app_data", JSON.stringify(data));
+  localStorage.setItem("pro_app_data_v2", JSON.stringify(data));
 }
 update();
 
@@ -251,20 +254,19 @@ function selectMethod(el, m) {
     selectedMth = m;
 }
 
-// ADS LOGIC
 function watchAd() {
   if (typeof window.showGiga === 'function') {
     window.showGiga().then(() => {
         data.bal += 10; data.ads += 1; update();
-        alert("!    ");
-    }).catch(() => alert("    "));
+        alert("অভিনন্দন! ১০ টাকা যোগ হয়েছে।");
+    }).catch(() => alert("অ্যাড লোড হতে সমস্যা হয়েছে।"));
   } else { alert("Ad Script Loading..."); }
 }
 
 function claimBonus() {
     let today = new Date().toDateString();
-    if(data.lastBonus === today) { alert("    !"); }
-    else { data.bal += 10; data.lastBonus = today; update(); alert("  ! "); }
+    if(data.lastBonus === today) { alert("আজকের বোনাস নেওয়া হয়ে গেছে!"); }
+    else { data.bal += 10; data.lastBonus = today; update(); alert("১০৳ বোনাস পেলেন! 🎁"); }
 }
 
 function startSpin() {
@@ -272,14 +274,14 @@ function startSpin() {
         window.showGiga().then(() => {
             let win = [0, 5, 10, 20, 50][Math.floor(Math.random()*5)];
             data.bal += win; update();
-            alert("   " + win + " ! ");
+            alert("আপনি স্পিন করে " + win + "৳ জিতেছেন! 🎉");
         });
     }
 }
 
 function copyRef() {
     navigator.clipboard.writeText(document.getElementById('refLink').innerText);
-    alert("   !     ");
+    alert("রেফার লিঙ্ক কপি হয়েছে! ২০৳ বোনাস পেতে শেয়ার করুন।");
 }
 
 function reqW() {
@@ -287,8 +289,8 @@ function reqW() {
     let n = document.getElementById('num').value;
     if(a >= 500 && a <= data.bal && n.length > 10) {
         data.bal -= a; update();
-        alert(" " + a + "   (" + selectedMth + ")  ");
-    } else { alert("   ( )"); }
+        alert("আপনার " + a + "৳ উইথড্র রিকোয়েস্ট (" + selectedMth + ") সফল হয়েছে।");
+    } else { alert("সঠিক তথ্য দিন (মিনিমাম ৫০০৳)।"); }
 }
 
 function openDev() { window.open("https://t.me/JUST_GOPAL", "_blank"); }
